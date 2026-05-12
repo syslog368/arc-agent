@@ -7,7 +7,7 @@ type ChatMessage = {
   content: string;
 };
 
-const MODEL = 'llama-3.3-70b-versatile';
+const MODEL = 'meta-llama/llama-3.3-70b-instruct:free';
 
 const jsonError = (message: string, status: number) =>
   new Response(JSON.stringify({ error: message }), {
@@ -17,9 +17,9 @@ const jsonError = (message: string, status: number) =>
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.GROQ_API_KEY;
+    const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
-      return jsonError('Server misconfiguration: missing GROQ_API_KEY', 500);
+      return jsonError('Server misconfiguration: missing OPENROUTER_API_KEY', 500);
     }
 
     const body = (await req.json()) as { messages?: ChatMessage[] };
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       return jsonError('Invalid request body: no valid messages provided.', 400);
     }
 
-    const upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const upstream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
 
     if (!upstream.ok || !upstream.body) {
       const errorText = await upstream.text();
-      return jsonError(errorText || 'Groq request failed', upstream.status || 502);
+      return jsonError(errorText || 'OpenRouter request failed', upstream.status || 502);
     }
 
     return new Response(upstream.body, {

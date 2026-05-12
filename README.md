@@ -12,7 +12,7 @@ AI-powered stablecoin research and agent infrastructure experiments built on mod
    ```bash
    cp .env.example .env.local
    ```
-   Add your Groq API key to `GROQ_API_KEY`.
+   Add your OpenRouter key to `OPENROUTER_API_KEY`.
 3. Run locally:
    ```bash
    npm run dev
@@ -24,15 +24,16 @@ AI-powered stablecoin research and agent infrastructure experiments built on mod
 
 ## AI model configuration
 
-The chat API route uses Groq model:
-- `llama-3.3-70b-versatile`
+The chat API route uses OpenRouter:
+- Base URL: `https://openrouter.ai/api/v1`
+- Model: `meta-llama/llama-3.3-70b-instruct:free`
 
 Streaming behavior is preserved via SSE from `/api/chat`.
 
 ## Vercel deployment
 
 1. Import this repository into Vercel.
-2. Set `GROQ_API_KEY` in **Project Settings → Environment Variables**.
+2. Set `OPENROUTER_API_KEY` in **Project Settings → Environment Variables**.
 3. Deploy (Vercel runs `npm run build`).
 
 This project is App Router + TypeScript + Tailwind and is ready for Vercel production deployment.
