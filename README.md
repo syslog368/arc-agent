@@ -17,7 +17,22 @@ AI-powered stablecoin research and agent infrastructure experiments built on mod
    ```bash
    npm run dev
    ```
-4. Build for production / Vercel:
+4. Build for production:
    ```bash
    npm run build
    ```
+
+## AI model configuration
+
+The chat API route uses Groq model:
+- `llama-3.3-70b-versatile`
+
+Streaming behavior is preserved via SSE from `/api/chat`.
+
+## Vercel deployment
+
+1. Import this repository into Vercel.
+2. Set `GROQ_API_KEY` in **Project Settings → Environment Variables**.
+3. Deploy (Vercel runs `npm run build`).
+
+This project is App Router + TypeScript + Tailwind and is ready for Vercel production deployment.
